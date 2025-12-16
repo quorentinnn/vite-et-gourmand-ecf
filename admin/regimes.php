@@ -1,14 +1,14 @@
 <?php
-// admin/allergens.php
-// Liste des allergènes
+// admin/regimes.php
+// Liste des régimes
 
 require_once '../config/database.php';
 
 try {
     $pdo = getConnection();
-    $sql = "SELECT * FROM allergens ORDER BY nom ASC";
+    $sql = "SELECT * FROM regimes ORDER BY nom ASC";
     $stmt = $pdo->query($sql);
-    $allergens = $stmt->fetchAll();
+    $regimes = $stmt->fetchAll();
 } catch (PDOException $e) {
     $error = "❌ Erreur : " . $e->getMessage();
 }
@@ -19,15 +19,15 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liste des allergènes - Vite & Gourmand</title>
+    <title>Liste des régimes - Vite & Gourmand</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <?php include '../includes/admin-nav.php'; ?>
     <div class="container mt-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1>⚠️ Liste des allergènes</h1>
-            <a href="add-allergen.php" class="btn btn-primary">➕ Ajouter un allergène</a>
+            <h1>🥗 Liste des régimes</h1>
+            <a href="add-regime.php" class="btn btn-primary">➕ Ajouter un régime</a>
         </div>
         
         <?php if (isset($error)): ?>
@@ -35,20 +35,20 @@ try {
         <?php endif; ?>
         
         <?php if (isset($_GET['success']) && $_GET['success'] === 'ajoute'): ?>
-            <div class="alert alert-success">✅ Allergène ajouté avec succès !</div>
+            <div class="alert alert-success">✅ Régime ajouté avec succès !</div>
         <?php endif; ?>
         
         <?php if (isset($_GET['success']) && $_GET['success'] === 'supprime'): ?>
-            <div class="alert alert-success">✅ Allergène supprimé avec succès !</div>
+            <div class="alert alert-success">✅ Régime supprimé avec succès !</div>
         <?php endif; ?>
         
         <?php if (isset($_GET['success']) && $_GET['success'] === 'modifie'): ?>
-            <div class="alert alert-success">✅ Allergène modifié avec succès !</div>
+            <div class="alert alert-success">✅ Régime modifié avec succès !</div>
         <?php endif; ?>
         
-        <?php if (empty($allergens)): ?>
+        <?php if (empty($regimes)): ?>
             <div class="alert alert-info">
-                Aucun allergène pour le moment. <a href="add-allergen.php">Ajoutez-en un !</a>
+                Aucun régime pour le moment. <a href="add-regime.php">Ajoutez-en un !</a>
             </div>
         <?php else: ?>
             <div class="card">
@@ -62,15 +62,15 @@ try {
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($allergens as $allergen): ?>
+                            <?php foreach ($regimes as $regime): ?>
                                 <tr>
-                                    <td><?= $allergen['id'] ?></td>
-                                    <td><?= htmlspecialchars($allergen['nom']) ?></td>
+                                    <td><?= $regime['id'] ?></td>
+                                    <td><?= htmlspecialchars($regime['nom']) ?></td>
                                     <td>
-                                        <a href="edit-allergen.php?id=<?= $allergen['id'] ?>" class="btn btn-sm btn-warning">✏️ Modifier</a>
-                                        <a href="delete-allergen.php?id=<?= $allergen['id'] ?>" 
+                                        <a href="edit-regime.php?id=<?= $regime['id'] ?>" class="btn btn-sm btn-warning">✏️ Modifier</a>
+                                        <a href="delete-regime.php?id=<?= $regime['id'] ?>" 
                                            class="btn btn-sm btn-danger"
-                                           onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet allergène ?')">🗑️ Supprimer</a>
+                                           onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce régime ?')">🗑️ Supprimer</a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

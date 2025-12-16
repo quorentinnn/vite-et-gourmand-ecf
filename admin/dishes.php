@@ -2,6 +2,7 @@
 // admin/dishes.php
 // Page qui liste tous les plats
 
+
 require_once '../config/database.php';
 
 // Récupérer tous les plats
@@ -25,6 +26,11 @@ try {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+    <body>
+    <?php include '../includes/admin-nav.php'; ?>
+    
+    <div class="container mt-5">
+        <!-- le reste du code -->
     <div class="container mt-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1>📋 Liste des plats</h1>
